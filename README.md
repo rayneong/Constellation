@@ -2,7 +2,7 @@
 Final Project for DES INV 23 (Spring 2018)
 
 ## Summary
-Our goal is to create an intuitive scalable open-source graphics library for Arduino Matrix LEDs, inspired by p5 language, and to code an interactive 2D game using the library. Other groups will be able to use components built into the library.
+Our goal is to create an intuitive scalable open-source graphics library for Arduino Matrix LEDs, inspired by the p5 language, and to code an interactive 2D game using the library. Other groups will be able to use components built into the library.
 
 ## Components
 - Matrix LEDs
