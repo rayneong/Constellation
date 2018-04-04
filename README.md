@@ -1,16 +1,19 @@
 # Matrix
+The Matrix is an arcade game machine on which users can play some classic arcade games.
 Final Project for DES INV 23 (Spring 2018)
 
 ## Summary
+The Matrix is made up of two major components - a display and controls.
+
 Our goal is to create an intuitive scalable open-source graphics library for Arduino Matrix LEDs, inspired by the p5 language, and to code an interactive 2D game using our library. Other groups will be able to use components built into the library.
 
 ## Components
-- Matrix LEDs
-- Adafruit/Ardunio Board
+- Matrix LEDs (32x32)
+- Adafruit/Arduino Board
 - Controls (Potentiometers/Buttons/etc)
 
 ## Challenges
-Designing and implementing intuitive functions will be challenging and potentially frustrating to debug. The complexity of game logic will be dependant on the game being implemented.
+Finding appropriate components as controls can be hard. Designing and implementing intuitive functions will be challenging and potentially frustrating to debug. The complexity of game logic will be dependant on the game being implemented.
 
 ## Timeline
 - Week 1: Finish proposal, complete rough game design, outline graphics library components
