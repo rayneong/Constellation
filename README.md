@@ -21,9 +21,9 @@ Assembling unfamiliar components can be difficult.
 Integrating all components together can be messy and time-consuming.
 
 ## Timeline
-Week 1: (passed) Ideation.
-Week 2: (passed) Ideation.
-Week 3: Build the instrument. Order components as needed. Finish most of the hardware. 
-Week 4: Write the control program. Integrate all components. Polish the design.
-Week 5: Final adjustments. Presentation.
+- Week 1: (passed) Ideation.
+- Week 2: (passed) Ideation.
+- Week 3: Build the instrument. Order components as needed. Finish most of the hardware. 
+- Week 4: Write the control program. Integrate all components. Polish the design.
+- Week 5: Final adjustments. Presentation.
 
