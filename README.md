@@ -21,7 +21,7 @@ The device is made up of two parts: (1) a series of buzzers surrounding (2) a ce
 The program will detect the simultaneous change in resistance of different photoresistors caused by the user altering the paths of the lasers, and will adjust the collective frequency/harmonics of the buzzers accordingly.
 
 ## Diagrams
-[[/images/spec-diagram.png]]
+[/images/spec-diagram.png]
 
 ## Challenges
 Since we have spent half of our time on ideating, we have limited amount of time to implement our idea. 
