@@ -38,7 +38,7 @@ int octavePin[] = {A3};
 int speakerPin[] = {5, 11, 13};
 int sensorValues[] = {0, 0, 0};
 int octaveValues[] = {0};
-int sensorThreshold = 400;
+int sensorThreshold = 200; //based on regular resistors
 int currOctave = 0;
  
 void setup() {
@@ -49,14 +49,15 @@ void loop() {
   checkOctave();
   for (int i = 0; i < sizeof(sensorPin) / sizeof(int); i += 1) {
     sensorValues[i] = analogRead(sensorPin[i]);
-    if (sensorValues[i] > sensorThreshold) { // CHANGE TO < WHEN USING LASER!
-      play(note[currOctave][i]);
+    if (sensorValues[i] > sensorThreshold) { // CHANGE TO < WHEN USING LASER! May add condition so that it only plays if octave sensor is active. 
+      play(note[currOctave][i]); //REMOVE * 2 after 
+      Serial.println("PORT: " + String(sensorPin[i])  + " FREQ: " + String(note[currOctave][i][0]));
     } else {
       noTone(speakerPin[i]);
     }
     Serial.println("PORT: " + String(sensorPin[i])  + " VALUE: " + String(sensorValues[i]));
   }
-  delay(50);
+  delay(30);
 }
 
 void checkOctave() {
@@ -71,15 +72,8 @@ void checkOctave() {
 void play(int freq[]) {
   for (int i = 0; i < sizeof(speakerPin) / sizeof(int); i += 1) {
     tone(speakerPin[i], freq[i]);
-    delay(50); //if want to play one freq (one speaker) at a time
-    noTone(speakerPin[i]); //if want to play one freq (one speaker) at a time
-    //delay(1000); //debug
+    //delay(10); //if want to play one freq (one speaker) at a time
+    //noTone(speakerPin[i]); //if want to play one freq (one speaker) at a time
   }
-  //delay(50); //if want to play all speakers at once
-//  for (int i = 0; i < sizeof(speakerPin) / sizeof(int); i += 1) {
-//    noTone(speakerPin[i]);
-    //delay(1000); //debug
-  //}
-  //delay(1000); //debug
 }
 
