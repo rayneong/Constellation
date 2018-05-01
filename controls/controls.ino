@@ -33,13 +33,23 @@ int note[][7][3] = {
   }
 };
 
-int sensorPin[] = {A2, A1, A0};
-int octavePin[] = {A3};
-int speakerPin[] = {5, 11, 13};
-int sensorValues[] = {0, 0, 0};
-int octaveValues[] = {0};
-int sensorThreshold = 200; //based on regular resistors
+// relayNum range: 0-2
+#define relayNum 0
+#define speakerPin 11
+#define scale 7
+#define octave 3
+
+int sensorPin[] = {A0, A1, A2, A3, A4, A5, 6};
+int octavePin[] = {9, 10, 12};
+int sensorValues[] = {0, 0, 0, 0, 0, 0, 0};
+int octaveValues[] = {0, 0, 0};
+int sensorThreshold = 200; // based on regular resistors
 int currOctave = 0;
+int counter = 0;
+int index = 0;
+int beat = 40;
+
+int arpeggio[] = {0, 0, 0, 0, 0, 0, 0}; // supports up to seven notes, a full scale
  
 void setup() {
   Serial.begin(9600);
@@ -47,33 +57,43 @@ void setup() {
 
 void loop() {
   checkOctave();
-  for (int i = 0; i < sizeof(sensorPin) / sizeof(int); i += 1) {
+  for (int i = 0; i < scale; i += 1) {
     sensorValues[i] = analogRead(sensorPin[i]);
     if (sensorValues[i] > sensorThreshold) { // CHANGE TO < WHEN USING LASER! May add condition so that it only plays if octave sensor is active. 
-      play(note[currOctave][i]); //REMOVE * 2 after 
-      Serial.println("PORT: " + String(sensorPin[i])  + " FREQ: " + String(note[currOctave][i][0]));
+      arpeggio[i] = note[currOctave][i][relayNum];
+      Serial.println("PORT: " + String(sensorPin[i])  + " FREQ: " + String(note[currOctave][i][relayNum]));
     } else {
-      noTone(speakerPin[i]);
+      arpeggio[i] = 0;
     }
     Serial.println("PORT: " + String(sensorPin[i])  + " VALUE: " + String(sensorValues[i]));
   }
+  play();
   delay(30);
 }
 
 void checkOctave() {
-  for (int i = 0; i < sizeof(octavePin) / sizeof(int); i += 1) {
+  for (int i = 0; i < octave; i += 1) {
     octaveValues[i] = analogRead(octavePin[i]);
     if (octaveValues[i] > sensorThreshold) { // CHANGE TO < WHEN USING LASER!
-      currOctave = i + 1; //REMOVE + 1 after debugging
+      currOctave = i + 1; // REMOVE + 1 after debugging
     }
   }
 }
 
-void play(int freq[]) {
-  for (int i = 0; i < sizeof(speakerPin) / sizeof(int); i += 1) {
-    tone(speakerPin[i], freq[i]);
-    //delay(10); //if want to play one freq (one speaker) at a time
-    //noTone(speakerPin[i]); //if want to play one freq (one speaker) at a time
+void play() {
+  index = index % 7;
+  while (index < 7 && arpeggio[index] == 0) { // plays next index
+    index += 1;
   }
+  if (index < 7) { // plays valid index, increments counter
+    tone(speakerPin, arpeggio[index]);
+    counter += 1;
+  }
+  if (counter >= beat) {
+    index += 1;
+    counter = 0;
+  }
+  //delay(10); // if want to play one freq (one speaker) at a time
+  //noTone(speakerPin[i]); // if want to play one freq (one speaker) at a time
 }
 
