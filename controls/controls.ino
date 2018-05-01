@@ -82,14 +82,16 @@ void checkOctave() {
 
 void play() {
   index = index % 7;
-  while (index < 7 && arpeggio[index] == 0) { // plays next index
+  while (index < 7 && arpeggio[index] == 0) { // finds next index
     index += 1;
   }
   if (index < 7) { // plays valid index, increments counter
     tone(speakerPin, arpeggio[index]);
     counter += 1;
+  } else { // resets counter
+    counter = 0;
   }
-  if (counter >= beat) {
+  if (counter >= beat) { // plays next note in arpeggio
     index += 1;
     counter = 0;
   }
