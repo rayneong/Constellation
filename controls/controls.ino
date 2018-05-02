@@ -68,7 +68,7 @@ void loop() {
     Serial.println("PORT: " + String(sensorPin[i])  + " VALUE: " + String(sensorValues[i]));
   }
   play();
-  delay(50);
+//  delay(50);
   for (int i = 0; i < scale; i += 1) {
     Serial.println(String(i) + ": " + String(arpeggio[i]));
   }
@@ -77,8 +77,8 @@ void loop() {
 void checkOctave() {
   for (int i = 0; i < octave; i += 1) {
     octaveValues[i] = analogRead(octavePin[i]);
-    if (octaveValues[i] > sensorThreshold && sensorPin[i] != A10) { // CHANGE TO < WHEN USING LASER!
-      currOctave = i + 1; // REMOVE + 1 after debugging
+    if (octaveValues[i] < sensorThreshold && sensorPin[i] != A10) { // CHANGE TO < WHEN USING LASER!
+      currOctave = i; // REMOVE + 1 after debugging
     }
     Serial.println("OCTAVE: " + String(octavePin[i])  + " VALUE: " + String(octaveValues[i]));
   }
