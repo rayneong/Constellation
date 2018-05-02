@@ -48,7 +48,6 @@ int currOctave = 0;
 int counter = 0;
 int index = 0;
 int beat = 12;
-bool onOctave = false;
 
 int arpeggio[] = {0, 0, 0, 0, 0, 0, 0}; // supports up to seven notes, a full scale
  
@@ -57,10 +56,10 @@ void setup() {
 }
 
 void loop() {
-  checkOctave();
+  bool safe = checkOctave();
   for (int i = 0; i < scale; i += 1) {
     sensorValues[i] = analogRead(sensorPin[i]);
-    if (sensorValues[i] < sensorThreshold && onOctave) { // CHANGE TO < WHEN USING LASER! May add condition so that it only plays if octave sensor is active. 
+    if (sensorValues[i] < sensorThreshold && safe) { // CHANGE TO < WHEN USING LASER! May add condition so that it only plays if octave sensor is active. 
       arpeggio[i] = note[currOctave][i][relayNum];
       Serial.println("PORT: " + String(sensorPin[i])  + " FREQ: " + String(note[currOctave][i][relayNum]));
     } else {
@@ -75,7 +74,8 @@ void loop() {
   }
 }
 
-void checkOctave() {
+bool checkOctave() {
+  bool onOctave = false;
   for (int i = 0; i < octave; i += 1) {
     octaveValues[i] = analogRead(octavePin[i]);
     if (octaveValues[i] < sensorThreshold && octavePin[i] != A10) { // CHANGE TO < WHEN USING LASER!
@@ -83,11 +83,10 @@ void checkOctave() {
       onOctave = true;
       Serial.println(String(currOctave));
       Serial.println(String(onOctave));
-    } else {
-      onOctave = false;
     }
     Serial.println("OCTAVE: " + String(octavePin[i])  + " VALUE: " + String(octaveValues[i]));
   }
+  return onOctave;
 }
 
 void play() {
