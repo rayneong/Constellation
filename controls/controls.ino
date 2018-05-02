@@ -78,7 +78,7 @@ bool checkOctave() {
   bool onOctave = false;
   for (int i = 0; i < octave; i += 1) {
     octaveValues[i] = analogRead(octavePin[i]);
-    if (octaveValues[i] < sensorThreshold && octavePin[i] != A10) { // CHANGE TO < WHEN USING LASER!
+    if (octaveValues[i] < sensorThreshold) { // CHANGE TO < WHEN USING LASER!
       currOctave = i; // REMOVE + 1 after debugging
       onOctave = true;
       Serial.println(String(currOctave));
