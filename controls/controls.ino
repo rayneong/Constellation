@@ -4,6 +4,15 @@
 //Example: A_0 + A_11 --> C6 --> [100, 200, 300] --> Pin5, Pin11, Pin13
 
 int note[][7][3] = {
+  { // second octave
+    {130, 65, 260}, // C2
+    {146, 73, 292}, // D2
+    {164, 82, 328}, // E2
+    {174, 87, 348}, // F2
+    {196, 98, 392}, // G2
+    {220, 110, 440}, // A2
+    {246, 123, 492} // B2
+  },
   { // third octave
     {262, 131, 523}, // C3
     {294, 147, 587}, // D3
@@ -34,7 +43,7 @@ int note[][7][3] = {
 };
 
 // relayNum range: 0-2
-#define relayNum 0
+#define relayNum 2
 #define speakerPin 11
 #define scale 7
 #define octave 3
@@ -47,7 +56,7 @@ int sensorThreshold = 150; // based on regular resistors
 int currOctave = 0;
 int counter = 0;
 int index = 0;
-int beat = 12;
+int beat = 14;
 
 int arpeggio[] = {0, 0, 0, 0, 0, 0, 0}; // supports up to seven notes, a full scale
  
